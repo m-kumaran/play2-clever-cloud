@@ -1,0 +1,5 @@
+{
+	"deploy": {
+		"goal": "-Dplay.version=2.1.1 -Dconfig.resource=application-cc.conf"
+	}
+}

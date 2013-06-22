@@ -1,0 +1,98 @@
+@(title: String)(content: Html)
+<!DOCTYPE html>
+<html>
+<head>
+<title>@title</title>
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+<link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+</head>
+<body style="color: #888">
+	<div id="mainWrap">
+		<div class="container-fluid">
+			<div class="navbar navbar-fixed-top">
+				<div class="navbar-inner">
+					<div class="container-fluid" style="background-color: #000;">
+						<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span>
+						</a> Clever-Cloud-App
+						<div class="nav-collapse">
+							<ul class="nav">
+								<li><a href="#">Menu1</a></li>
+								<li><a href="#">Menu2</a></li>
+								<li><a href="#">Menu3</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid" style="margin-top: 60px">
+			<div class="row-fluid">
+				<br /> <br /> <br />
+				<div class="span12">
+					This is a sample <a href="http://www.playframework.com/" target="_blank">Play 2.1.1 </a> Application with <a target="_blank"
+						href="http://www.postgresql.org/">PostgreSQL</a> deployed in <a target="_blank" href="http://www.clever-cloud.com/en/">Clever-Cloud</a>
+				</div>
+				<h4>Steps to deploy:-</h4>
+				<ul>
+					<li><a target="_blank" href="https://console.clever-cloud.com/auth/signup">Create an account in Clever-Cloud with
+							just email and password</a></li>
+					<li>Add a new application and configure according to your requirement
+						and note down the value of <strong>&lt;YOUR_GIT_DEPLOYMENT_URL&gt;</strong>
+					</li>
+					<li>Add a new postgresql service under Services menu.. After a while you will get an email with the following details:-
+						<ul>
+							<li>db_host = <strong>&lt;YOUR_UNIQUE_DBNAME&gt;</strong>.postgresql.clvrcld.net
+							</li>
+							<li>db_port = 5432</li>
+							<li>db_name = <strong>&lt;YOUR_UNIQUE_DBNAME&gt;</strong></li>
+							<li>db_username = <strong>&lt;YOUR_USERNAME&gt;</strong></li>
+							<li>db_password = <strong>&lt;YOUR_PASSWORD&gt;</strong></li>
+						</ul>
+					</li>
+					<hr/>
+					<li>Amend your application.conf accordingly (The url value should be inside double quotes)
+						<code class="prettyprint">
+							<br/>db.default.driver=org.postgresql.Driver
+							<br/>db.default.url="jdbc:postgresql://<strong>&lt;YOUR_UNIQUE_DBNAME&gt;</strong>.postgresql.clvrcld.net:5432/<strong>&lt;YOUR_UNIQUE_DBNAME&gt;</strong>"
+							<br/>db.default.user=<strong>&lt;YOUR_USERNAME&gt;</strong>
+							<br/>db.default.pass=<strong>&lt;YOUR_PASSWORD&gt;</strong>
+						</code>
+					</li>
+					<li>In the project root folder create a folder with the name "clevercloud" and put a file inside that folder, with the name "play.json"
+						<br/>If you use play 2.1.1 and have a dedicated config file for this cloud provider, then the play.json file shall contain
+						<code class="prettyprint">
+							<br/> { "deploy": { "goal": "-Dplay.version=2.1.1 -Dconfig.resource=application-cc.conf" } } <br />
+						</code>
+					</li>
+					<hr/>
+					<li>Issue the following git commands from the project root. [If you don't have GIT download from <a target="_blank" href="http://git-scm.com/downloads">http://git-scm.com/downloads</a>
+						<code class="prettyprint">
+							<br/>git init
+							<br/>git remote add clevercloud <strong>&lt;YOUR_GIT_DEPLOYMENT_URL&gt;</strong> (clevercloud is the sample name given for this remote. You can change it if you need)
+							<br/>git push clevercloud master
+						</code>
+							<br/>You will see the output like :-
+							<br/>C:\your_project_root>git push clevercloud master
+						<code class="prettyprint">
+							<br/>Counting objects: 7, done.
+							<br/>Delta compression using up to 8 threads.
+							<br/>Compressing objects: 100% (3/3), done.
+							<br/>Writing objects: 100% (4/4), 328 bytes, done.
+							<br/>Total 4 (delta 2), reused 0 (delta 0) remote: {"id":999,"message":"The application has successfully been queued for redeploy.","type":"success"}
+							<br/>To <strong>&lt;YOUR_GIT_DEPLOYMENT_URL&gt;</strong>   XXX..XXX master -> master
+						</code>
+					</li>
+					<li>Thats it!!! Follow the logs from the clever-cloud LOGS menu</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div id="push"></div>
+	</div>
+</body>
+</html>
